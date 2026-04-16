@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolKite - Kiteboarding & Wing Foil School</title>
+    <script src="tailwind.js"></script>
+    <link rel="icon" type="image/webp" href="images/images (2).webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === RESET & CORE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* === THEME VARIABLES (Ocean Watersports Theme) === */
+        :root {
+            --bg-color: #F8FAFC;
+            --bg-secondary: #F0F9FF; 
+            --bg-card: #FFFFFF; 
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --accent-color: #0EA5E9; 
+            --accent-dark: #0284C7; 
+            --border-color: #E0F2FE;
+            --nav-bg: rgba(255, 255, 255, 0.90);
+            --drawer-bg: #FFFFFF;
+            --drawer-text: #0F172A;
+            --menu-hover-bg: rgba(14, 165, 233, 0.08); 
+        }
+
+        /* DARK MODE */
+        body.dark-mode {
+            --bg-color: #082F49; 
+            --bg-secondary: #0C4A6E; 
+            --bg-card: #0C4A6E; 
+            --text-main: #F0F9FF; 
+            --text-muted: #BAE6FD;
+            --accent-color: #38BDF8; 
+            --accent-dark: #7DD3FC; 
+            --border-color: #075985;
+            --nav-bg: rgba(8, 47, 73, 0.90);
+            --drawer-bg: #0C4A6E;
+            --drawer-text: #F0F9FF;
+            --menu-hover-bg: rgba(56, 189, 248, 0.15); 
+        }
+
+        /* RTL SUPPORT */
+        [dir="rtl"] { text-align: right; }
+        [dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
+        [dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
+        [dir="rtl"] .pl-4 { padding-right: 1rem; padding-left: 0; }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fullscreen-menu { right: auto; left: 0; transform: translateX(-100%); border-left: none; border-right: 1px solid var(--border-color); }
+
+        /* === ANIMATIONS === */
+        @keyframes subtleZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        .animate-zoom { animation: subtleZoom 20s infinite alternate ease-in-out; }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+
+        /* === NAVBAR DESIGN (MODERN SOFT-BOX) === */
+        .navbar { 
+            position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 1000;
+            background: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            padding: 14px 24px; transition: all 0.3s ease;
+        }
+        
+        /* Nav Links */
+        .nav-link { 
+            position: relative; padding: 10px 16px; margin: 0 4px;
+            color: var(--text-main); text-decoration: none; font-size: 13.5px; 
+            font-weight: 600; text-transform: capitalize; letter-spacing: 0.3px; 
+            transition: all 0.3s ease; border-radius: 8px;
+            display: inline-flex; align-items: center; gap: 6px; cursor: pointer; 
+        }
+        
+        .nav-link::before {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 0%; height: 3px; background-color: var(--accent-color); 
+            border-top-left-radius: 4px; border-top-right-radius: 4px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover, .nav-link.active { 
+            background-color: var(--menu-hover-bg); color: var(--accent-color); 
+        }
+        
+        .nav-link:hover::before, .nav-link.active::before { width: 60%; }
+        
+        /* Dropdowns */
+        .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-menu { 
+            position: absolute; top: 100%; left: 0; transform: translateY(10px); 
+            margin-top: 5px; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 100; 
+        }
+        .dropdown-inner { 
+            background: var(--bg-card); border: 1px solid var(--border-color); 
+            border-radius: 8px; min-width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 8px 0; 
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        
+        .dropdown-item { 
+            display: block; padding: 12px 20px; 
+            color: var(--text-main); text-decoration: none; font-size: 13px; font-weight: 500; 
+            transition: all 0.2s; text-align: left; white-space: nowrap; border-left: 3px solid transparent;
+        }
+        .dropdown-item:hover { 
+            background: var(--menu-hover-bg); color: var(--accent-color); padding-left: 24px; border-left-color: var(--accent-color);
+        }
+        [dir="rtl"] .dropdown-item:hover { padding-left: 20px; padding-right: 24px; border-left-color: transparent; border-right: 3px solid var(--accent-color); }
+
+        /* PILL TOGGLE */
+        .theme-toggle-pill { width: 52px; height: 26px; background: var(--bg-secondary); border-radius: 30px; position: relative; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-color); }
+        .theme-toggle-pill i { font-size: 10px; z-index: 1; }
+        .theme-toggle-pill .fa-sun { color: #f59e0b; }
+        .theme-toggle-pill .fa-moon { color: #999; }
+        .theme-toggle-pill .thumb { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 2; }
+        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(26px); background: #0C4A6E; }
+
+        /* BUTTONS */
+        .btn { padding: 10px 24px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px; box-sizing: border-box; }
+        .btn-solid { background: var(--accent-color); color: #FFFFFF !important; border: 2px solid var(--accent-color); }
+        .btn-solid:hover { background: var(--accent-dark); border-color: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 15px -3px rgba(14, 165, 233, 0.25); }
+        .btn-outline { border: 2px solid var(--border-color); color: var(--text-main); background: var(--bg-card); }
+        .btn-outline:hover { border-color: var(--text-main); transform: translateY(-2px); }
+
+        /* MOBILE OVERLAY BACKGROUND */
+        .drawer-overlay {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); z-index: 1000;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(3px);
+        }
+        .drawer-overlay.active { opacity: 1; visibility: visible; }
+
+        /* HAMBURGER MENU */
+        .fullscreen-menu { 
+            position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 380px;
+            background: var(--drawer-bg); border-left: 1px solid var(--border-color);
+            z-index: 1001; display: flex; flex-direction: column; color: var(--drawer-text); 
+            opacity: 0; visibility: hidden; transform: translateX(100%); 
+            transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -15px 0 40px rgba(0,0,0,0.1);
+        }
+        .fullscreen-menu.active { opacity: 1; visibility: visible; transform: translateX(0); }
+        
+        .mobile-link { 
+            display: block; width: 100%; padding: 16px 0;
+            font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-main); text-decoration: none; transition: all 0.3s; 
+            border-bottom: 1px dashed var(--border-color); text-align: left;
+        }
+        .mobile-link:hover { color: var(--accent-color); padding-left: 8px; }
+        [dir="rtl"] .mobile-link { text-align: right; }
+        [dir="rtl"] .mobile-link:hover { padding-left: 0; padding-right: 8px; }
+
+        /* FOOTER */
+        footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding-top: 60px; }
+        footer h4 { color: var(--text-main); font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; } 
+        footer a, footer li, footer span { color: var(--text-muted); text-decoration: none; transition: all 0.3s; font-size: 0.95rem; }
+        footer a:hover { color: var(--accent-color); }
+        .social-link-circle { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; transition: all 0.3s; color: var(--text-main); background: var(--bg-card); }
+        .social-link-circle:hover { background: var(--accent-color); color: #FFFFFF; border-color: var(--accent-color); transform: translateY(-3px); }
+        .footer-bottom { border-top: 1px solid var(--border-color); padding: 24px 0; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="max-w-[1440px] mx-auto w-full flex items-center justify-between relative">
+            
+            <div class="flex items-center flex-1 w-full justify-start">
+                <a href="index.html" class="text-xl lg:text-2xl font-black tracking-tighter" style="color: var(--text-main); text-decoration: none;">
+                    SchoolKite
+                </a>
+            </div>
+            
+            <div class="hidden xl:flex justify-center items-center shrink-0">
+                <div class="dropdown">
+                    <div class="nav-link active">Home <i class="fas fa-chevron-down text-[8px] ml-1 opacity-70"></i></div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="index.html" class="dropdown-item">Home Page 1</a>
+                            <a href="home-2.html" class="dropdown-item">Home Page 2</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="hidden xl:flex items-center justify-end flex-1 w-full gap-3">
+                <a href="login.html" class="btn btn-outline min-w-[95px] h-[38px] !p-0 !text-[11px] flex items-center justify-center">Login</a> 
+                <a href="register.html" class="btn btn-solid min-w-[95px] h-[38px] !p-0 !text-[11px] flex items-center justify-center">Register</a>
+                
+                <div class="w-px h-6 bg-[var(--border-color)] mx-2"></div>
+                
+                <button id="rtl-btn" class="text-[9px] font-black text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-secondary)] transition-all uppercase tracking-widest border border-[var(--border-color)] px-2.5 py-1.5 rounded">RTL</button>
+                
+                <div id="theme-toggle-desktop" class="theme-toggle-pill" title="Toggle Dark Mode">
+                    <i class="fas fa-sun"></i><i class="fas fa-moon"></i><div class="thumb"></div>
+                </div>
+            </div>
+
+            <div class="xl:hidden flex items-center justify-end flex-1 w-full">
+                <button id="mobile-btn" class="w-10 h-10 rounded bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-white hover:bg-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all shadow-sm">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+            </div>
+
+        </div>
+    </nav>
+    
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+
+    <div class="fullscreen-menu" id="fullscreen-menu">
+        <div class="w-full px-6 py-5 flex justify-between items-center border-b border-[var(--border-color)] shrink-0 bg-[var(--bg-secondary)]">
+            <a href="index.html" class="text-xl font-black tracking-tighter" style="color: var(--text-main); text-decoration: none;">
+                SchoolKite
+            </a>
+            <button id="close-menu" class="w-8 h-8 rounded border border-[var(--border-color)] flex items-center justify-center hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition-all text-lg bg-[var(--bg-card)] text-[var(--text-muted)]">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="flex flex-col items-start justify-start px-6 py-4 w-full overflow-y-auto flex-1">
+            <a href="index.html" class="mobile-link" style="color: var(--accent-color); border-top: 1px dashed var(--border-color);">Home Page 1</a>
+            <a href="home-2.html" class="mobile-link">Home Page 2</a>
+            <a href="about.html" class="mobile-link">About</a>
+            <a href="services.html" class="mobile-link">Services</a>
+            <a href="pricing.html" class="mobile-link">Pricing</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="faq.html" class="mobile-link">FAQ</a>
+            <a href="contact.html" class="mobile-link">Contact</a>
+        </div>
+
+        <div class="w-full px-6 py-6 border-t border-[var(--border-color)] flex flex-col gap-5 shrink-0 bg-[var(--bg-secondary)]">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-bold text-[10px] uppercase tracking-widest">Theme:</span>
+                    <div id="theme-toggle-mobile" class="theme-toggle-pill"><i class="fas fa-sun"></i><i class="fas fa-moon"></i><div class="thumb"></div></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-bold text-[10px] uppercase tracking-widest">Layout:</span>
+                    <button id="rtl-toggle-mobile" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] border border-[var(--border-color)] px-3 py-1.5 rounded hover:border-[var(--accent-color)] transition-colors">LTR / RTL</button>
+                </div>
+            </div>
+            
+            <div class="flex flex-col gap-3 w-full mt-2">
+                <a href="login.html" class="btn btn-outline w-full !py-3 rounded">Login</a>
+                <a href="register.html" class="btn btn-solid w-full !py-3 rounded">Register</a>
+            </div>
+        </div>
+    </div>
+    
+    <section class="relative w-full min-h-[100dvh] flex items-center pt-28 pb-12 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="images/pexels-quang-nguyen-vinh-222549-6416386.jpg" alt="Kiteboarding over clear ocean waters" class="w-full h-full object-cover object-center animate-zoom" />
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-sky-300 text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md">
+                    <i class="fas fa-award"></i> IKO Certified Instructors
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-white tracking-tight">
+                    Ride The Wind. <br>
+                    <span style="color: var(--accent-color);">Master The Foil.</span>
+                </h1>
+                <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-xl font-normal mb-10">
+                    Experience the ultimate thrill of kiteboarding and wing foiling. From your first flight to advanced wave riding, we provide premium gear and personalized coastal coaching.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    <a href="pricing.html" class="btn btn-solid w-full sm:w-auto group !py-3 sm:!py-4 !px-8 text-sm flex justify-center items-center gap-3">
+                        <span>Book A Lesson</span>
+                        <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                    <a href="user.html" class="btn border-2 border-slate-300 text-white hover:bg-white hover:text-slate-900 w-full sm:w-auto !py-3 sm:!py-4 !px-8 text-sm transition-all flex justify-center items-center gap-2 backdrop-blur-sm">
+                        <i class="fas fa-play-circle"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 hidden md:flex justify-end animate-float">
+                <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 sm:p-8 w-full max-w-sm shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-full bg-[var(--accent-color)] flex items-center justify-center text-white text-xl shadow-lg">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg leading-none">Current Conditions</h3>
+                            <p class="text-sky-200 text-sm mt-1">South Beach Point</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-slate-900/40 rounded-xl p-4 border border-white/5">
+                            <span class="block text-sky-400 text-[10px] uppercase tracking-widest font-bold mb-1">Wind Speed</span>
+                            <span class="block text-white text-2xl font-black">18<span class="text-sm font-normal text-slate-400 ml-1">kts</span></span>
+                        </div>
+                        <div class="bg-slate-900/40 rounded-xl p-4 border border-white/5">
+                            <span class="block text-sky-400 text-[10px] uppercase tracking-widest font-bold mb-1">Direction</span>
+                            <span class="block text-white text-2xl font-black">SE<span class="text-sm font-normal text-slate-400 ml-1">Onshore</span></span>
+                        </div>
+                    </div>
+                    <div class="pt-5 border-t border-white/10">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-slate-300 text-sm"><i class="fas fa-check-circle text-[var(--accent-color)] mr-2"></i> Ideal for all levels</span>
+                        </div>
+                        <a href="contact.html" class="block text-center w-full py-3 rounded bg-white text-slate-900 font-bold hover:bg-sky-50 transition-colors text-sm shadow-md">Check Full Forecast</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-[var(--bg-color)]">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl h-[400px]">
+                <img src="images/pexels-harold-granados-115813190-10087214.jpg" alt="Kiteboarding student" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <p class="font-bold text-xl">10+ Years Experience</p>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Learn to Fly with Confidence</h2>
+                <p class="text-[var(--text-muted)] mb-6 leading-relaxed">
+                    At SchoolKite, we believe the ocean is for everyone. Our IKO certified instructors tailor every lesson to your pace, ensuring safety while maximizing your time on the water.
+                </p>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-[var(--accent-color)]"></i> <span class="font-medium">All Equipment Provided</span></li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-[var(--accent-color)]"></i> <span class="font-medium">Radio Helmet Coaching</span></li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-[var(--accent-color)]"></i> <span class="font-medium">Jet Ski Boat Support</span></li>
+                </ul>
+                <a href="about.html" class="btn btn-outline py-3 px-8">Discover Our Story</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-[var(--bg-secondary)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Our Programs</h2>
+                <p class="text-[var(--text-muted)]">Choose your path to mastering the wind and waves.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-[var(--bg-card)] rounded-xl overflow-hidden shadow-lg border border-[var(--border-color)] transition-transform hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden"><img src="images/pexels-sergk1-13012960.jpg" alt="Beginner" class="w-full h-full object-cover"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Zero to Hero</h3>
+                        <p class="text-[var(--text-muted)] text-sm mb-4">Complete beginner course covering kite control, body dragging, and first water starts.</p>
+                        <a href="services.html" class="text-[var(--accent-color)] font-bold text-sm hover:underline">View Details <i class="fas fa-arrow-right text-[10px] ml-1"></i></a>
+                    </div>
+                </div>
+                <div class="bg-[var(--bg-card)] rounded-xl overflow-hidden shadow-lg border border-[var(--border-color)] transition-transform hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden"><img src="images/pexels-sergk1-13034378.jpg" alt="Foil" class="w-full h-full object-cover"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Wing Foil Intro</h3>
+                        <p class="text-[var(--text-muted)] text-sm mb-4">Discover the newest sensation in watersports. Learn wing handling and foil flight dynamics.</p>
+                        <a href="services.html" class="text-[var(--accent-color)] font-bold text-sm hover:underline">View Details <i class="fas fa-arrow-right text-[10px] ml-1"></i></a>
+                    </div>
+                </div>
+                <div class="bg-[var(--bg-card)] rounded-xl overflow-hidden shadow-lg border border-[var(--border-color)] transition-transform hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden"><img src="images/pexels-sergk1-13862931.jpg" alt="Advanced" class="w-full h-full object-cover"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Advanced Coaching</h3>
+                        <p class="text-[var(--text-muted)] text-sm mb-4">Master upwind riding, transitions, jumps, and advanced freestyle tricks with video analysis.</p>
+                        <a href="services.html" class="text-[var(--accent-color)] font-bold text-sm hover:underline">View Details <i class="fas fa-arrow-right text-[10px] ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-[var(--bg-color)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">The SchoolKite Experience</h2>
+                    <p class="text-[var(--text-muted)] max-w-xl">Get a glimpse of the adrenaline, the stoke, and the stunning conditions at our home spot.</p>
+                </div>
+                <div class="flex gap-3 mt-6 md:mt-0">
+                    <button id="gallery-prev" class="w-12 h-12 rounded-full border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:bg-[var(--accent-color)] hover:text-white hover:border-[var(--accent-color)] transition-all shadow-sm"><i class="fas fa-arrow-left"></i></button>
+                    <button id="gallery-next" class="w-12 h-12 rounded-full border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:bg-[var(--accent-color)] hover:text-white hover:border-[var(--accent-color)] transition-all shadow-sm"><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl h-[500px] bg-black">
+                <div id="gallery-track" class="flex h-full transition-transform duration-500 ease-in-out w-[400%]">
+                    
+                    <div class="w-1/4 h-full relative flex-shrink-0">
+                        <img src="images/pexels-sergio-hurtado-265552058-13463766.jpg" class="w-full h-full object-cover" alt="Action shot 1">
+                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+                            <h3 class="text-3xl font-black drop-shadow-md">Perfect Wave Riding</h3>
+                            <p class="text-sky-300 mt-2 font-medium">South Beach Shore Break</p>
+                        </div>
+                    </div>
+                    
+                    <div class="w-1/4 h-full relative flex-shrink-0">
+                        <img src="images/pexels-sergk1-13871226.jpg" class="w-full h-full object-cover" alt="Action shot 2">
+                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+                            <h3 class="text-3xl font-black drop-shadow-md">Big Air Freestyle</h3>
+                            <p class="text-sky-300 mt-2 font-medium">Advanced Twin Tip Coaching</p>
+                        </div>
+                    </div>
+                    
+                    <div class="w-1/4 h-full relative flex-shrink-0">
+                        <img src="images/pexels-sergk1-13871230.jpg" class="w-full h-full object-cover" alt="Action shot 3">
+                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+                            <h3 class="text-3xl font-black drop-shadow-md">Sunset Sessions</h3>
+                            <p class="text-sky-300 mt-2 font-medium">Golden Hour Flights</p>
+                        </div>
+                    </div>
+                    
+                    <div class="w-1/4 h-full relative flex-shrink-0">
+                        <img src="images/pexels-harold-granados-115813190-10090411.jpg" class="w-full h-full object-cover" alt="Action shot 4">
+                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+                            <h3 class="text-3xl font-black drop-shadow-md">Beginner Water Starts</h3>
+                            <p class="text-sky-300 mt-2 font-medium">Safe and Controlled Progression</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-[var(--bg-secondary)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Meet Your Coaches</h2>
+                <p class="text-[var(--text-muted)]">Passionate professionals dedicated to your progression.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] overflow-hidden text-center p-6 shadow-sm">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-[var(--accent-color)]">
+                        <img src="images/pexels-harold-granados-115813190-10028656.jpg" alt="Coach" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold">Alex Rider</h3>
+                    <p class="text-[var(--accent-color)] text-xs font-bold uppercase tracking-wider mb-4">Head Instructor</p>
+                    <p class="text-[var(--text-muted)] text-sm mb-6">IKO Level 3 certified with over 5,000 hours of teaching experience worldwide.</p>
+                </div>
+                <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] overflow-hidden text-center p-6 shadow-sm">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-[var(--accent-color)]">
+                        <img src="images/pexels-harold-granados-115813190-10099153.jpg" alt="Coach" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold">Sarah Wave</h3>
+                    <p class="text-[var(--accent-color)] text-xs font-bold uppercase tracking-wider mb-4">Wing Foil Specialist</p>
+                    <p class="text-[var(--text-muted)] text-sm mb-6">Pioneer in wing foiling with a passion for getting students flying on day one.</p>
+                </div>
+                <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] overflow-hidden text-center p-6 shadow-sm">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-[var(--accent-color)]">
+                        <img src="images/pexels-sergk1-15220549.jpg" alt="Coach" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold">Mike Surfer</h3>
+                    <p class="text-[var(--accent-color)] text-xs font-bold uppercase tracking-wider mb-4">Freestyle Coach</p>
+                    <p class="text-[var(--text-muted)] text-sm mb-6">Former competitor helping advanced riders nail their first loops and passes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-[var(--bg-color)] border-t border-[var(--border-color)]">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Top-Tier Equipment for Fast Progression</h2>
+                <p class="text-[var(--text-muted)] mb-6 leading-relaxed">
+                    Learning with the latest and safest gear makes all the difference. We renew our entire kite, wing, and board inventory every season to ensure you ride the best and easiest-to-control equipment available on the market today.
+                </p>
+                <div class="grid grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <h4 class="text-lg font-bold mb-2 flex items-center"><i class="fas fa-kitesurfing text-[var(--accent-color)] mr-2"></i> Latest Kites</h4>
+                        <p class="text-sm text-[var(--text-muted)]">High depower bow and delta kites perfect for learning safely.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2 flex items-center"><i class="fas fa-water text-[var(--accent-color)] mr-2"></i> Carbon Foils</h4>
+                        <p class="text-sm text-[var(--text-muted)]">Ultra-light foil setups for early lift and smooth sustained flights.</p>
+                    </div>
+                </div>
+                <a href="services.html" class="btn btn-outline py-3 px-8">View Equipment Rental</a>
+            </div>
+            <div class="order-1 lg:order-2 rounded-2xl overflow-hidden shadow-2xl h-[400px]">
+                <img src="images/pexels-sergk1-15220561.jpg" alt="Premium kite gear" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <section class="relative py-24 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="images/pexels-sergk1-15220571.jpg" alt="Sunset kiteboarding" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-[var(--bg-color)] opacity-90 dark:opacity-95"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-[var(--accent-color)] text-white text-xs font-bold tracking-widest uppercase mb-6">Limited Slots Available</span>
+            <h2 class="text-4xl md:text-5xl font-black mb-6">Ready to Hit the Water?</h2>
+            <p class="text-lg text-[var(--text-muted)] mb-10 max-w-2xl mx-auto">
+                Join hundreds of successful students who learned to ride with SchoolKite. Book your lesson today and harness the power of the wind.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="pricing.html" class="btn btn-solid py-4 px-10 text-sm">View Pricing</a>
+                <a href="contact.html" class="btn btn-outline py-4 px-10 text-sm bg-[var(--bg-card)]">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-10 pt-4">
+                <div class="lg:col-span-4">
+                    <a href="index.html" class="text-xl lg:text-2xl font-black tracking-tighter mb-6 flex items-center gap-2" style="color: var(--text-main); text-decoration: none;">
+                        SchoolKite
+                    </a>
+                    <p class="opacity-80 leading-relaxed text-sm mb-6 max-w-sm" style="color: var(--text-muted);">
+                        The premier destination for learning kiteboarding and wing foiling. From complete beginners to advanced wave riders, we help you conquer the elements.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="social-link-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                        <div>
+                            <h4>Student Portal</h4>
+                            <ul class="space-y-3">
+                                <li><a href="login.html">Dashboard Login</a></li>
+                                <li><a href="pricing.html">Book Sessions</a></li>
+                                <li><a href="user.html">Track Progress</a></li>
+                                <li><a href="#">Waivers & Forms</a></li>
+                                <li><a href="#">IKO Certifications</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Our Programs</h4>
+                            <ul class="space-y-3">
+                                <li><a href="services.html">Beginner Kite Camps</a></li>
+                                <li><a href="services.html">Wing Foil Introduction</a></li>
+                                <li><a href="services.html">Private Coaching</a></li>
+                                <li><a href="services.html">Gear Rentals</a></li>
+                                <li><a href="services.html">Downwinder Trips</a></li>
+                            </ul>
+                        </div>
+                        <div class="sm:col-span-2 md:col-span-1">
+                            <h4>School Location</h4>
+                            <ul class="space-y-3 text-[var(--text-muted)] text-sm">
+                                <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 shrink-0" style="color: var(--accent-color);"></i><span>South Beach Point<br>Windy Bay, FL 33139</span></li>
+                                <li class="flex items-center"><i class="fas fa-phone mr-3 shrink-0" style="color: var(--accent-color);"></i><a href="tel:+18005559463" class="break-all">1-800-555-WIND</a></li>
+                                <li class="flex items-center"><i class="fas fa-envelope mr-3 shrink-0" style="color: var(--accent-color);"></i><a href="mailto:ride@schoolkite.com" class="break-all">ride@schoolkite.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom flex flex-col md:flex-row justify-between items-center text-sm gap-4">
+                <p style="color: var(--text-muted);">&copy; 2026 SchoolKite Watersports. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                    <a href="#">Safety Policy</a>
+                    <a href="#">Cancellation Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Drawer Menu Logic
+        const mobileBtn = document.getElementById('mobile-btn'); 
+        const fullscreenMenu = document.getElementById('fullscreen-menu'); 
+        const closeMenu = document.getElementById('close-menu'); 
+        const drawerOverlay = document.getElementById('drawer-overlay');
+        
+        function toggleMenu() { 
+            fullscreenMenu.classList.toggle('active'); 
+            drawerOverlay.classList.toggle('active');
+            document.body.style.overflow = fullscreenMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+        
+        mobileBtn.onclick = toggleMenu; 
+        closeMenu.onclick = toggleMenu; 
+        drawerOverlay.onclick = toggleMenu; 
+        
+        // Theme Logic
+        const themeDesktop = document.getElementById('theme-toggle-desktop');
+        const themeMobile = document.getElementById('theme-toggle-mobile'); 
+        const theme = localStorage.getItem('theme') || 'light';
+
+        function updateThemeUI(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode'); 
+                if(themeMobile) themeMobile.classList.add('active');
+            } else {
+                document.body.classList.remove('dark-mode');
+                if(themeMobile) themeMobile.classList.remove('active');
+            }
+        }
+        
+        updateThemeUI(theme === 'dark');
+        
+        function toggleTheme() { 
+            const isDark = !document.body.classList.contains('dark-mode');
+            updateThemeUI(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light'); 
+        }
+        
+        themeDesktop.onclick = toggleTheme; 
+        if(themeMobile) themeMobile.onclick = toggleTheme;
+        
+        // RTL Logic
+        const rtlBtn = document.getElementById('rtl-btn'); 
+        const rtlMobile = document.getElementById('rtl-toggle-mobile'); 
+        const dir = localStorage.getItem('dir') || 'ltr';
+        
+        if (dir === 'rtl') { 
+            document.documentElement.dir = 'rtl'; 
+        }
+        
+        function toggleRTL() { 
+            const isRTL = document.documentElement.dir === 'rtl'; 
+            document.documentElement.dir = isRTL ? 'ltr' : 'rtl'; 
+            localStorage.setItem('dir', isRTL ? 'ltr' : 'rtl'); 
+        }
+        
+        rtlBtn.onclick = toggleRTL; 
+        if(rtlMobile) rtlMobile.onclick = toggleRTL;
+
+        // Image Gallery Carousel Logic
+        const track = document.getElementById('gallery-track');
+        const prevBtn = document.getElementById('gallery-prev');
+        const nextBtn = document.getElementById('gallery-next');
+        let currentSlide = 0;
+        const totalSlides = 4; // 4 images in the track
+
+        function updateSlide() {
+            // Because there are 4 slides, we move by 25% increments (100% / 4)
+            track.style.transform = `translateX(-${currentSlide * 25}%)`;
+        }
+
+        nextBtn.onclick = () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlide();
+        };
+
+        prevBtn.onclick = () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlide();
+        };
+    </script>
+</body>
+</html>
