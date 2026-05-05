@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SchoolKite - Kiteboarding & Wing Foil School</title>
-    <script src="tailwind.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/webp" href="images/images (2).webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -55,11 +55,8 @@
         }
 
         /* RTL SUPPORT */
-        [dir="rtl"] { text-align: right; }
-        [dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
-        [dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
-        [dir="rtl"] .pl-4 { padding-right: 1rem; padding-left: 0; }
-        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
         [dir="rtl"] .fullscreen-menu { right: auto; left: 0; transform: translateX(-100%); border-left: none; border-right: 1px solid var(--border-color); }
 
         /* === ANIMATIONS === */
@@ -122,20 +119,20 @@
         .dropdown-item { 
             display: block; padding: 12px 20px; 
             color: var(--text-main); text-decoration: none; font-size: 13px; font-weight: 500; 
-            transition: all 0.2s; text-align: left; white-space: nowrap; border-left: 3px solid transparent;
+            transition: all 0.2s; text-align: start; white-space: nowrap; border-inline-start: 3px solid transparent;
         }
         .dropdown-item:hover { 
-            background: var(--menu-hover-bg); color: var(--accent-color); padding-left: 24px; border-left-color: var(--accent-color);
+            background: var(--menu-hover-bg); color: var(--accent-color); padding-inline-start: 24px; border-inline-start-color: var(--accent-color);
         }
-        [dir="rtl"] .dropdown-item:hover { padding-left: 20px; padding-right: 24px; border-left-color: transparent; border-right: 3px solid var(--accent-color); }
 
         /* PILL TOGGLE */
         .theme-toggle-pill { width: 52px; height: 26px; background: var(--bg-secondary); border-radius: 30px; position: relative; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-color); }
         .theme-toggle-pill i { font-size: 10px; z-index: 1; }
         .theme-toggle-pill .fa-sun { color: #f59e0b; }
         .theme-toggle-pill .fa-moon { color: #999; }
-        .theme-toggle-pill .thumb { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 2; }
+        .theme-toggle-pill .thumb { position: absolute; top: 2px; inset-inline-start: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 2; }
         body.dark-mode .theme-toggle-pill .thumb { transform: translateX(26px); background: #0C4A6E; }
+        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-26px); }
 
         /* BUTTONS */
         .btn { padding: 10px 24px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px; box-sizing: border-box; }
@@ -165,11 +162,9 @@
             display: block; width: 100%; padding: 16px 0;
             font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
             color: var(--text-main); text-decoration: none; transition: all 0.3s; 
-            border-bottom: 1px dashed var(--border-color); text-align: left;
+            border-bottom: 1px dashed var(--border-color); text-align: start;
         }
-        .mobile-link:hover { color: var(--accent-color); padding-left: 8px; }
-        [dir="rtl"] .mobile-link { text-align: right; }
-        [dir="rtl"] .mobile-link:hover { padding-left: 0; padding-right: 8px; }
+        .mobile-link:hover { color: var(--accent-color); padding-inline-start: 8px; }
 
         /* FOOTER */
         footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding-top: 60px; }
@@ -194,7 +189,7 @@
             
             <div class="hidden xl:flex justify-center items-center shrink-0">
                 <div class="dropdown">
-                    <div class="nav-link active">Home <i class="fas fa-chevron-down text-[8px] ml-1 opacity-70"></i></div>
+                    <div class="nav-link active">Home <i class="fas fa-chevron-down text-[8px] ms-1 opacity-70"></i></div>
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <a href="index.html" class="dropdown-item">Home Page 1</a>
@@ -282,7 +277,7 @@
         </div>
 
         <div class="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-7 text-left">
+            <div class="lg:col-span-7 text-start">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-sky-300 text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md">
                     <i class="fas fa-award"></i> IKO Certified Instructors
                 </div>
@@ -296,7 +291,7 @@
                 <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                     <a href="pricing.html" class="btn btn-solid w-full sm:w-auto group !py-3 sm:!py-4 !px-8 text-sm flex justify-center items-center gap-3">
                         <span>Book A Lesson</span>
-                        <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                        <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1"></i>
                     </a>
                     <a href="user.html" class="btn border-2 border-slate-300 text-white hover:bg-white hover:text-slate-900 w-full sm:w-auto !py-3 sm:!py-4 !px-8 text-sm transition-all flex justify-center items-center gap-2 backdrop-blur-sm">
                         <i class="fas fa-play-circle"></i> Watch Video
@@ -318,16 +313,16 @@
                     <div class="grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-slate-900/40 rounded-xl p-4 border border-white/5">
                             <span class="block text-sky-400 text-[10px] uppercase tracking-widest font-bold mb-1">Wind Speed</span>
-                            <span class="block text-white text-2xl font-black">18<span class="text-sm font-normal text-slate-400 ml-1">kts</span></span>
+                            <span class="block text-white text-2xl font-black">18<span class="text-sm font-normal text-slate-400 ms-1">kts</span></span>
                         </div>
                         <div class="bg-slate-900/40 rounded-xl p-4 border border-white/5">
                             <span class="block text-sky-400 text-[10px] uppercase tracking-widest font-bold mb-1">Direction</span>
-                            <span class="block text-white text-2xl font-black">SE<span class="text-sm font-normal text-slate-400 ml-1">Onshore</span></span>
+                            <span class="block text-white text-2xl font-black">SE<span class="text-sm font-normal text-slate-400 ms-1">Onshore</span></span>
                         </div>
                     </div>
                     <div class="pt-5 border-t border-white/10">
                         <div class="flex items-center justify-between mb-4">
-                            <span class="text-slate-300 text-sm"><i class="fas fa-check-circle text-[var(--accent-color)] mr-2"></i> Ideal for all levels</span>
+                            <span class="text-slate-300 text-sm"><i class="fas fa-check-circle text-[var(--accent-color)] me-2"></i> Ideal for all levels</span>
                         </div>
                         <a href="contact.html" class="block text-center w-full py-3 rounded bg-white text-slate-900 font-bold hover:bg-sky-50 transition-colors text-sm shadow-md">Check Full Forecast</a>
                     </div>
@@ -341,7 +336,7 @@
             <div class="relative rounded-2xl overflow-hidden shadow-2xl h-[400px]">
                 <img src="images/pexels-harold-granados-115813190-10087214.jpg" alt="Kiteboarding student" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
+                <div class="absolute bottom-6 start-6 text-white">
                     <p class="font-bold text-xl">10+ Years Experience</p>
                 </div>
             </div>
@@ -372,7 +367,7 @@
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">Zero to Hero</h3>
                         <p class="text-[var(--text-muted)] text-sm mb-4">Complete beginner course covering kite control, body dragging, and first water starts.</p>
-                        <a href="services.html" class="text-[var(--accent-color)] font-bold text-sm hover:underline">View Details <i class="fas fa-arrow-right text-[10px] ml-1"></i></a>
+                        <a href="services.html" class="text-[var(--accent-color)] font-bold text-sm hover:underline">View Details <i class="fas fa-arrow-right text-[10px] ms-1"></i></a>
                     </div>
                 </div>
                 <div class="bg-[var(--bg-card)] rounded-xl overflow-hidden shadow-lg border border-[var(--border-color)] transition-transform hover:-translate-y-2">
@@ -380,7 +375,7 @@
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">Wing Foil Intro</h3>
                         <p class="text-[var(--text-muted)] text-sm mb-4">Discover the newest sensation in watersports. Learn wing handling and foil flight dynamics.</p>
-                        <a href="services.html" class="text-[var(--accent-color)] font-bold text-sm hover:underline">View Details <i class="fas fa-arrow-right text-[10px] ml-1"></i></a>
+                        <a href="services.html" class="text-[var(--accent-color)] font-bold text-sm hover:underline">View Details <i class="fas fa-arrow-right text-[10px] ms-1"></i></a>
                     </div>
                 </div>
                 <div class="bg-[var(--bg-card)] rounded-xl overflow-hidden shadow-lg border border-[var(--border-color)] transition-transform hover:-translate-y-2">
@@ -388,7 +383,7 @@
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">Advanced Coaching</h3>
                         <p class="text-[var(--text-muted)] text-sm mb-4">Master upwind riding, transitions, jumps, and advanced freestyle tricks with video analysis.</p>
-                        <a href="services.html" class="text-[var(--accent-color)] font-bold text-sm hover:underline">View Details <i class="fas fa-arrow-right text-[10px] ml-1"></i></a>
+                        <a href="services.html" class="text-[var(--accent-color)] font-bold text-sm hover:underline">View Details <i class="fas fa-arrow-right text-[10px] ms-1"></i></a>
                     </div>
                 </div>
             </div>
@@ -413,7 +408,7 @@
                     
                     <div class="w-1/4 h-full relative flex-shrink-0">
                         <img src="images/pexels-sergio-hurtado-265552058-13463766.jpg" class="w-full h-full object-cover" alt="Action shot 1">
-                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+                        <div class="absolute bottom-0 start-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
                             <h3 class="text-3xl font-black drop-shadow-md">Perfect Wave Riding</h3>
                             <p class="text-sky-300 mt-2 font-medium">South Beach Shore Break</p>
                         </div>
@@ -421,7 +416,7 @@
                     
                     <div class="w-1/4 h-full relative flex-shrink-0">
                         <img src="images/pexels-sergk1-13871226.jpg" class="w-full h-full object-cover" alt="Action shot 2">
-                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+                        <div class="absolute bottom-0 start-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
                             <h3 class="text-3xl font-black drop-shadow-md">Big Air Freestyle</h3>
                             <p class="text-sky-300 mt-2 font-medium">Advanced Twin Tip Coaching</p>
                         </div>
@@ -429,7 +424,7 @@
                     
                     <div class="w-1/4 h-full relative flex-shrink-0">
                         <img src="images/pexels-sergk1-13871230.jpg" class="w-full h-full object-cover" alt="Action shot 3">
-                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+                        <div class="absolute bottom-0 start-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
                             <h3 class="text-3xl font-black drop-shadow-md">Sunset Sessions</h3>
                             <p class="text-sky-300 mt-2 font-medium">Golden Hour Flights</p>
                         </div>
@@ -437,7 +432,7 @@
                     
                     <div class="w-1/4 h-full relative flex-shrink-0">
                         <img src="images/pexels-harold-granados-115813190-10090411.jpg" class="w-full h-full object-cover" alt="Action shot 4">
-                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+                        <div class="absolute bottom-0 start-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
                             <h3 class="text-3xl font-black drop-shadow-md">Beginner Water Starts</h3>
                             <p class="text-sky-300 mt-2 font-medium">Safe and Controlled Progression</p>
                         </div>
@@ -492,11 +487,11 @@
                 </p>
                 <div class="grid grid-cols-2 gap-6 mb-8">
                     <div>
-                        <h4 class="text-lg font-bold mb-2 flex items-center"><i class="fas fa-kitesurfing text-[var(--accent-color)] mr-2"></i> Latest Kites</h4>
+                        <h4 class="text-lg font-bold mb-2 flex items-center"><i class="fas fa-kitesurfing text-[var(--accent-color)] me-2"></i> Latest Kites</h4>
                         <p class="text-sm text-[var(--text-muted)]">High depower bow and delta kites perfect for learning safely.</p>
                     </div>
                     <div>
-                        <h4 class="text-lg font-bold mb-2 flex items-center"><i class="fas fa-water text-[var(--accent-color)] mr-2"></i> Carbon Foils</h4>
+                        <h4 class="text-lg font-bold mb-2 flex items-center"><i class="fas fa-water text-[var(--accent-color)] me-2"></i> Carbon Foils </h4>
                         <p class="text-sm text-[var(--text-muted)]">Ultra-light foil setups for early lift and smooth sustained flights.</p>
                     </div>
                 </div>
@@ -568,9 +563,9 @@
                         <div class="sm:col-span-2 md:col-span-1">
                             <h4>School Location</h4>
                             <ul class="space-y-3 text-[var(--text-muted)] text-sm">
-                                <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 shrink-0" style="color: var(--accent-color);"></i><span>South Beach Point<br>Windy Bay, FL 33139</span></li>
-                                <li class="flex items-center"><i class="fas fa-phone mr-3 shrink-0" style="color: var(--accent-color);"></i><a href="tel:+18005559463" class="break-all">1-800-555-WIND</a></li>
-                                <li class="flex items-center"><i class="fas fa-envelope mr-3 shrink-0" style="color: var(--accent-color);"></i><a href="mailto:ride@schoolkite.com" class="break-all">ride@schoolkite.com</a></li>
+                                <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 me-3 shrink-0" style="color: var(--accent-color);"></i><span>South Beach Point<br>Windy Bay, FL 33139</span></li>
+                                <li class="flex items-center"><i class="fas fa-phone me-3 shrink-0" style="color: var(--accent-color);"></i><a href="tel:+18005559463" class="break-all">1-800-555-WIND</a></li>
+                                <li class="flex items-center"><i class="fas fa-envelope me-3 shrink-0" style="color: var(--accent-color);"></i><a href="mailto:ride@schoolkite.com" class="break-all">ride@schoolkite.com</a></li>
                             </ul>
                         </div>
                     </div>

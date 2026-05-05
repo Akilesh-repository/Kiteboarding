@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SchoolKite - Blog & News</title>
-    <script src="tailwind.js"></script>
-    <link rel="icon" type="image/jpeg" href="images\images (2).webp">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/jpeg" href="images/images (2).webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
@@ -55,11 +55,8 @@
         }
 
         /* RTL SUPPORT */
-        [dir="rtl"] { text-align: right; }
-        [dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
-        [dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
-        [dir="rtl"] .pl-4 { padding-right: 1rem; padding-left: 0; }
-        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
         [dir="rtl"] .fullscreen-menu { right: auto; left: 0; transform: translateX(-100%); border-left: none; border-right: 1px solid var(--border-color); }
 
         /* === ANIMATIONS === */
@@ -122,20 +119,20 @@
         .dropdown-item { 
             display: block; padding: 12px 20px; 
             color: var(--text-main); text-decoration: none; font-size: 13px; font-weight: 500; 
-            transition: all 0.2s; text-align: left; white-space: nowrap; border-left: 3px solid transparent;
+            transition: all 0.2s; text-align: start; white-space: nowrap; border-inline-start: 3px solid transparent;
         }
         .dropdown-item:hover { 
-            background: var(--menu-hover-bg); color: var(--accent-color); padding-left: 24px; border-left-color: var(--accent-color);
+            background: var(--menu-hover-bg); color: var(--accent-color); padding-inline-start: 24px; border-inline-start-color: var(--accent-color);
         }
-        [dir="rtl"] .dropdown-item:hover { padding-left: 20px; padding-right: 24px; border-left-color: transparent; border-right: 3px solid var(--accent-color); }
 
         /* PILL TOGGLE */
         .theme-toggle-pill { width: 52px; height: 26px; background: var(--bg-secondary); border-radius: 30px; position: relative; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-color); }
         .theme-toggle-pill i { font-size: 10px; z-index: 1; }
         .theme-toggle-pill .fa-sun { color: #f59e0b; }
         .theme-toggle-pill .fa-moon { color: #999; }
-        .theme-toggle-pill .thumb { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 2; }
+        .theme-toggle-pill .thumb { position: absolute; top: 2px; inset-inline-start: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 2; }
         body.dark-mode .theme-toggle-pill .thumb { transform: translateX(26px); background: #0C4A6E; }
+        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-26px); }
 
         /* BUTTONS */
         .btn { padding: 10px 24px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px; box-sizing: border-box; }
@@ -165,11 +162,9 @@
             display: block; width: 100%; padding: 16px 0;
             font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
             color: var(--text-main); text-decoration: none; transition: all 0.3s; 
-            border-bottom: 1px dashed var(--border-color); text-align: left;
+            border-bottom: 1px dashed var(--border-color); text-align: start;
         }
-        .mobile-link:hover { color: var(--accent-color); padding-left: 8px; }
-        [dir="rtl"] .mobile-link { text-align: right; }
-        [dir="rtl"] .mobile-link:hover { padding-left: 0; padding-right: 8px; }
+        .mobile-link:hover { color: var(--accent-color); padding-inline-start: 8px; }
 
         /* FOOTER */
         footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding-top: 60px; }
@@ -198,7 +193,7 @@
             
             <div class="hidden xl:flex justify-center items-center shrink-0">
                 <div class="dropdown">
-                    <div class="nav-link">Home <i class="fas fa-chevron-down text-[8px] ml-1 opacity-70"></i></div>
+                    <div class="nav-link">Home <i class="fas fa-chevron-down text-[8px] ms-1 opacity-70"></i></div>
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <a href="index.html" class="dropdown-item">Home Page 1</a>
@@ -286,7 +281,7 @@
         </div>
 
         <div class="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-8 text-left">
+            <div class="lg:col-span-8 text-start">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-sky-300 text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md">
                     <i class="fas fa-newspaper"></i> SchoolKite Journal
                 </div>
@@ -309,7 +304,7 @@
                 <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden w-full max-w-sm shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
                     <div class="h-40 overflow-hidden relative">
                         <img src="images/pexels-sergio-hurtado-265552058-13463766.jpg" class="w-full h-full object-cover" alt="Featured Post">
-                        <div class="absolute top-4 left-4 bg-[var(--accent-color)] text-white text-[10px] font-bold uppercase tracking-widest py-1 px-3 rounded">Hot Tip</div>
+                        <div class="absolute top-4 start-4 bg-[var(--accent-color)] text-white text-[10px] font-bold uppercase tracking-widest py-1 px-3 rounded">Hot Tip</div>
                     </div>
                     <div class="p-6 bg-slate-900/60 border-t border-white/10">
                         <span class="text-sky-400 text-[10px] uppercase tracking-widest font-bold mb-2 block">Featured Post</span>
@@ -338,17 +333,17 @@
                 <div class="group flex flex-col bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border-color)] hover:shadow-2xl hover:shadow-[var(--accent-color)]/10 transition-all duration-300 h-full transform hover:-translate-y-1">
                     <div class="h-64 md:h-72 overflow-hidden relative">
                         <img src="images/pexels-harold-granados-115813190-10087214.jpg" alt="Mastering the Water Start" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Technique</div>
+                        <div class="absolute top-4 start-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Technique</div>
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow">
-                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock mr-1"></i> April 10, 2026 • 5 min read</span>
+                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock me-1"></i> April 10, 2026 • 5 min read</span>
                         <h3 class="text-2xl font-bold mb-4 text-[var(--text-main)] line-clamp-2 transition-colors group-hover:text-[var(--accent-color)]">Mastering the Water Start: A Step-by-Step Guide</h3>
                         <p class="text-[var(--text-muted)] text-base mb-8 line-clamp-3 leading-relaxed">
                             Struggling to get up on the board? We break down the exact kite positioning and body mechanics needed to nail your water start every single time.
                         </p>
                         <a href="blogs-details.html" class="mt-auto btn btn-outline w-full !py-3.5 flex justify-center items-center gap-2 group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] transition-all duration-300">
                             <span>View Details</span>
-                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
@@ -356,17 +351,17 @@
                 <div class="group flex flex-col bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border-color)] hover:shadow-2xl hover:shadow-[var(--accent-color)]/10 transition-all duration-300 h-full transform hover:-translate-y-1">
                     <div class="h-64 md:h-72 overflow-hidden relative">
                         <img src="images/pexels-sergk1-13012960.jpg" alt="2026 Gear Guide" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Gear Review</div>
+                        <div class="absolute top-4 start-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Gear Review</div>
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow">
-                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock mr-1"></i> April 05, 2026 • 8 min read</span>
+                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock me-1"></i> April 05, 2026 • 8 min read</span>
                         <h3 class="text-2xl font-bold mb-4 text-[var(--text-main)] line-clamp-2 transition-colors group-hover:text-[var(--accent-color)]">2026 Gear Guide: Top Kites for Freeride Progression</h3>
                         <p class="text-[var(--text-muted)] text-base mb-8 line-clamp-3 leading-relaxed">
                             We've tested the newest models from top brands. Discover which kites offer the best hangtime, easiest relaunch, and smoothest bar pressure.
                         </p>
                         <a href="blogs-details.html" class="mt-auto btn btn-outline w-full !py-3.5 flex justify-center items-center gap-2 group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] transition-all duration-300">
                             <span>View Details</span>
-                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
@@ -374,17 +369,17 @@
                 <div class="group flex flex-col bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border-color)] hover:shadow-2xl hover:shadow-[var(--accent-color)]/10 transition-all duration-300 h-full transform hover:-translate-y-1">
                     <div class="h-64 md:h-72 overflow-hidden relative">
                         <img src="images/pexels-sergk1-13034378.jpg" alt="Wing Foiling vs Kiteboarding" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Comparison</div>
+                        <div class="absolute top-4 start-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Comparison</div>
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow">
-                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock mr-1"></i> March 28, 2026 • 6 min read</span>
+                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock me-1"></i> March 28, 2026 • 6 min read</span>
                         <h3 class="text-2xl font-bold mb-4 text-[var(--text-main)] line-clamp-2 transition-colors group-hover:text-[var(--accent-color)]">Wing Foiling vs. Kiteboarding: Which Should You Learn First?</h3>
                         <p class="text-[var(--text-muted)] text-base mb-8 line-clamp-3 leading-relaxed">
                             Deciding between a kite and a wing? We compare the learning curves, gear costs, and wind requirements to help you choose your path.
                         </p>
                         <a href="blogs-details.html" class="mt-auto btn btn-outline w-full !py-3.5 flex justify-center items-center gap-2 group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] transition-all duration-300">
                             <span>View Details</span>
-                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
@@ -392,17 +387,17 @@
                 <div class="group flex flex-col bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border-color)] hover:shadow-2xl hover:shadow-[var(--accent-color)]/10 transition-all duration-300 h-full transform hover:-translate-y-1">
                     <div class="h-64 md:h-72 overflow-hidden relative">
                         <img src="images/pexels-sergk1-13862931.jpg" alt="Top 10 Kite Spots" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Travel</div>
+                        <div class="absolute top-4 start-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Travel</div>
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow">
-                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock mr-1"></i> March 15, 2026 • 10 min read</span>
+                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock me-1"></i> March 15, 2026 • 10 min read</span>
                         <h3 class="text-2xl font-bold mb-4 text-[var(--text-main)] line-clamp-2 transition-colors group-hover:text-[var(--accent-color)]">Top 10 Secret Kite Spots in Florida for Flat Water</h3>
                         <p class="text-[var(--text-muted)] text-base mb-8 line-clamp-3 leading-relaxed">
                             Escape the crowded beaches. We reveal our favorite hidden gems across the Florida coast offering buttery smooth flat water perfect for freestyle.
                         </p>
                         <a href="blogs-details.html" class="mt-auto btn btn-outline w-full !py-3.5 flex justify-center items-center gap-2 group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] transition-all duration-300">
                             <span>View Details</span>
-                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
@@ -410,17 +405,17 @@
                 <div class="group flex flex-col bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border-color)] hover:shadow-2xl hover:shadow-[var(--accent-color)]/10 transition-all duration-300 h-full transform hover:-translate-y-1">
                     <div class="h-64 md:h-72 overflow-hidden relative">
                         <img src="images/pexels-sergio-hurtado-265552058-13463766.jpg" alt="Reading Wind Forecasts" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Guides</div>
+                        <div class="absolute top-4 start-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Guides</div>
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow">
-                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock mr-1"></i> March 02, 2026 • 7 min read</span>
+                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock me-1"></i> March 02, 2026 • 7 min read</span>
                         <h3 class="text-2xl font-bold mb-4 text-[var(--text-main)] line-clamp-2 transition-colors group-hover:text-[var(--accent-color)]">How to Read Wind Forecasts Like a Local Pro</h3>
                         <p class="text-[var(--text-muted)] text-base mb-8 line-clamp-3 leading-relaxed">
                             Tired of getting skunked at the beach? Learn how to accurately read isobar charts, thermal effects, and tide impacts to never miss a session.
                         </p>
                         <a href="blogs-details.html" class="mt-auto btn btn-outline w-full !py-3.5 flex justify-center items-center gap-2 group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] transition-all duration-300">
                             <span>View Details</span>
-                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
@@ -428,17 +423,17 @@
                 <div class="group flex flex-col bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border-color)] hover:shadow-2xl hover:shadow-[var(--accent-color)]/10 transition-all duration-300 h-full transform hover:-translate-y-1">
                     <div class="h-64 md:h-72 overflow-hidden relative">
                         <img src="images/pexels-sergk1-13871230.jpg" alt="Safety Tips" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Safety</div>
+                        <div class="absolute top-4 start-4 bg-white/90 text-[var(--text-main)] text-[10px] font-extrabold uppercase tracking-widest py-1.5 px-3 rounded shadow-md backdrop-blur-md">Safety</div>
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow">
-                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock mr-1"></i> February 18, 2026 • 4 min read</span>
+                        <span class="text-xs text-[var(--text-muted)] font-medium mb-3 block"><i class="far fa-clock me-1"></i> February 18, 2026 • 4 min read</span>
                         <h3 class="text-2xl font-bold mb-4 text-[var(--text-main)] line-clamp-2 transition-colors group-hover:text-[var(--accent-color)]">5 Essential Safety Checks Before You Launch</h3>
                         <p class="text-[var(--text-muted)] text-base mb-8 line-clamp-3 leading-relaxed">
                             Never skip your pre-flight routine. We run through the mandatory 5-point safety check to ensure your lines, harness, and quick-release are perfect.
                         </p>
                         <a href="blogs-details.html" class="mt-auto btn btn-outline w-full !py-3.5 flex justify-center items-center gap-2 group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] transition-all duration-300">
                             <span>View Details</span>
-                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
@@ -489,9 +484,9 @@
                         <div class="sm:col-span-2 md:col-span-1">
                             <h4>School Location</h4>
                             <ul class="space-y-3 text-[var(--text-muted)] text-sm">
-                                <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 shrink-0" style="color: var(--accent-color);"></i><span>South Beach Point<br>Windy Bay, FL 33139</span></li>
-                                <li class="flex items-center"><i class="fas fa-phone mr-3 shrink-0" style="color: var(--accent-color);"></i><a href="tel:+18005559463" class="break-all">1-800-555-WIND</a></li>
-                                <li class="flex items-center"><i class="fas fa-envelope mr-3 shrink-0" style="color: var(--accent-color);"></i><a href="mailto:ride@schoolkite.com" class="break-all">ride@schoolkite.com</a></li>
+                                <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 me-3 shrink-0" style="color: var(--accent-color);"></i><span>South Beach Point<br>Windy Bay, FL 33139</span></li>
+                                <li class="flex items-center"><i class="fas fa-phone me-3 shrink-0" style="color: var(--accent-color);"></i><a href="tel:+18005559463" class="break-all">1-800-555-WIND</a></li>
+                                <li class="flex items-center"><i class="fas fa-envelope me-3 shrink-0" style="color: var(--accent-color);"></i><a href="mailto:ride@schoolkite.com" class="break-all">ride@schoolkite.com</a></li>
                             </ul>
                         </div>
                     </div>

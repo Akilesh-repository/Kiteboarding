@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SchoolKite - About Us</title>
-    <script src="tailwind.js"></script>
-    <link rel="icon" type="image/jpeg" href="images\images (2).webp">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/jpeg" href="images/images (2).webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
@@ -55,11 +55,8 @@
         }
 
         /* RTL SUPPORT */
-        [dir="rtl"] { text-align: right; }
-        [dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
-        [dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
-        [dir="rtl"] .pl-4 { padding-right: 1rem; padding-left: 0; }
-        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
         [dir="rtl"] .fullscreen-menu { right: auto; left: 0; transform: translateX(-100%); border-left: none; border-right: 1px solid var(--border-color); }
 
         /* === ANIMATIONS === */
@@ -104,9 +101,7 @@
             background-color: var(--menu-hover-bg); color: var(--accent-color); 
         }
         
-        .nav-link:hover::before, .nav-link.active::before { 
-            width: 60%; 
-        }
+        .nav-link:hover::before, .nav-link.active::before { width: 60%; }
         
         /* Dropdowns */
         .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
@@ -124,20 +119,20 @@
         .dropdown-item { 
             display: block; padding: 12px 20px; 
             color: var(--text-main); text-decoration: none; font-size: 13px; font-weight: 500; 
-            transition: all 0.2s; text-align: left; white-space: nowrap; border-left: 3px solid transparent;
+            transition: all 0.2s; text-align: start; white-space: nowrap; border-inline-start: 3px solid transparent;
         }
         .dropdown-item:hover { 
-            background: var(--menu-hover-bg); color: var(--accent-color); padding-left: 24px; border-left-color: var(--accent-color);
+            background: var(--menu-hover-bg); color: var(--accent-color); padding-inline-start: 24px; border-inline-start-color: var(--accent-color);
         }
-        [dir="rtl"] .dropdown-item:hover { padding-left: 20px; padding-right: 24px; border-left-color: transparent; border-right: 3px solid var(--accent-color); }
 
         /* PILL TOGGLE */
         .theme-toggle-pill { width: 52px; height: 26px; background: var(--bg-secondary); border-radius: 30px; position: relative; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-color); }
         .theme-toggle-pill i { font-size: 10px; z-index: 1; }
         .theme-toggle-pill .fa-sun { color: #f59e0b; }
         .theme-toggle-pill .fa-moon { color: #999; }
-        .theme-toggle-pill .thumb { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 2; }
+        .theme-toggle-pill .thumb { position: absolute; top: 2px; inset-inline-start: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 2; }
         body.dark-mode .theme-toggle-pill .thumb { transform: translateX(26px); background: #0C4A6E; }
+        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-26px); }
 
         /* BUTTONS */
         .btn { padding: 10px 24px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px; box-sizing: border-box; }
@@ -167,11 +162,9 @@
             display: block; width: 100%; padding: 16px 0;
             font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
             color: var(--text-main); text-decoration: none; transition: all 0.3s; 
-            border-bottom: 1px dashed var(--border-color); text-align: left;
+            border-bottom: 1px dashed var(--border-color); text-align: start;
         }
-        .mobile-link:hover { color: var(--accent-color); padding-left: 8px; }
-        [dir="rtl"] .mobile-link { text-align: right; }
-        [dir="rtl"] .mobile-link:hover { padding-left: 0; padding-right: 8px; }
+        .mobile-link:hover { color: var(--accent-color); padding-inline-start: 8px; }
 
         /* FOOTER */
         footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding-top: 60px; }
@@ -196,7 +189,7 @@
             
             <div class="hidden xl:flex justify-center items-center shrink-0">
                 <div class="dropdown">
-                    <div class="nav-link">Home <i class="fas fa-chevron-down text-[8px] ml-1 opacity-70"></i></div>
+                    <div class="nav-link">Home <i class="fas fa-chevron-down text-[8px] ms-1 opacity-70"></i></div>
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <a href="index.html" class="dropdown-item">Home Page 1</a>
@@ -313,7 +306,7 @@
         <div class="relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
             <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
                 
-                <div class="flex items-center gap-4 text-left w-full md:w-auto border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-8">
+                <div class="flex items-center gap-4 text-start w-full md:w-auto border-b md:border-b-0 md:border-e border-white/10 pb-4 md:pb-0 md:pe-8">
                     <div class="w-12 h-12 rounded-full bg-[var(--accent-color)] flex items-center justify-center text-white text-xl shrink-0 shadow-inner">
                         <i class="fas fa-flag"></i>
                     </div>
@@ -323,7 +316,7 @@
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-4 text-left w-full md:w-auto border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-8">
+                <div class="flex items-center gap-4 text-start w-full md:w-auto border-b md:border-b-0 md:border-e border-white/10 pb-4 md:pb-0 md:pe-8">
                     <div class="w-12 h-12 rounded-full bg-slate-800/80 flex items-center justify-center text-white text-xl shrink-0 border border-white/20">
                         <i class="fas fa-users"></i>
                     </div>
@@ -333,8 +326,8 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-between w-full md:w-auto gap-6">
-                    <div class="text-left">
+                <div class="flex items-center justify-between w-full md:w-auto gap-6 text-start">
+                    <div>
                         <span class="block text-amber-400 text-[10px] uppercase tracking-widest font-bold">Our Mission</span>
                         <span class="block text-white text-lg font-bold">Ocean Accessibility</span>
                     </div>
@@ -350,7 +343,7 @@
             <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[500px]">
                 <img src="images/pexels-sergk1-13862931.jpg" alt="Our Organization" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-tr from-slate-900/60 to-transparent"></div>
-                <div class="absolute bottom-8 left-8 text-white border-l-4 border-[var(--accent-color)] pl-4">
+                <div class="absolute bottom-8 start-8 text-white border-s-4 border-[var(--accent-color)] ps-4">
                     <p class="font-bold text-2xl">IKO Certified Center</p>
                     <p class="text-sky-200 text-sm mt-1">Globally Recognized Standards</p>
                 </div>
@@ -428,15 +421,15 @@
             </div>
             
             <div class="relative mt-12">
-                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-[var(--border-color)] md:-translate-x-1/2"></div>
+                <div class="absolute start-4 md:start-1/2 top-0 bottom-0 w-1 bg-[var(--border-color)] md:-translate-x-1/2 rtl:md:translate-x-1/2"></div>
                 
                 <div class="relative flex flex-col md:flex-row items-center mb-16">
-                    <div class="hidden md:block md:w-1/2 pr-12 text-right">
+                    <div class="hidden md:block md:w-1/2 pe-12 text-end">
                         <h3 class="text-2xl font-bold">The Beginning</h3>
                         <p class="text-[var(--text-muted)] mt-2">SchoolKite was founded with just two kites and a shared passion for the sport on a small local beach.</p>
                     </div>
-                    <div class="absolute left-4 md:left-1/2 w-6 h-6 rounded-full bg-[var(--accent-color)] border-4 border-[var(--bg-color)] shadow transform -translate-x-1/2 mt-1.5 md:mt-0 z-10"></div>
-                    <div class="w-full pl-12 md:w-1/2 md:pl-12 text-left">
+                    <div class="absolute start-4 md:start-1/2 w-6 h-6 rounded-full bg-[var(--accent-color)] border-4 border-[var(--bg-color)] shadow transform -translate-x-1/2 rtl:translate-x-1/2 mt-1.5 md:mt-0 z-10"></div>
+                    <div class="w-full ps-12 md:w-1/2 md:ps-12 text-start">
                         <span class="text-[var(--accent-color)] font-black text-xl mb-2 block">2014</span>
                         <div class="md:hidden mb-2">
                             <h3 class="text-2xl font-bold">The Beginning</h3>
@@ -446,27 +439,27 @@
                 </div>
                 
                 <div class="relative flex flex-col md:flex-row items-center mb-16">
-                    <div class="w-full pl-12 md:w-1/2 md:pr-12 md:pl-0 text-left md:text-right">
+                    <div class="w-full ps-12 md:w-1/2 md:pe-12 md:ps-0 text-start md:text-end">
                         <span class="text-[var(--accent-color)] font-black text-xl mb-2 block">2018</span>
                         <div class="md:hidden mb-2">
                             <h3 class="text-2xl font-bold">Facility Expansion</h3>
                             <p class="text-[var(--text-muted)] mt-2">We opened our official beachfront center, adding jet ski support and radio helmets to our teaching arsenal.</p>
                         </div>
                     </div>
-                    <div class="absolute left-4 md:left-1/2 w-6 h-6 rounded-full bg-[var(--accent-color)] border-4 border-[var(--bg-color)] shadow transform -translate-x-1/2 mt-1.5 md:mt-0 z-10"></div>
-                    <div class="hidden md:block md:w-1/2 pl-12 text-left">
+                    <div class="absolute start-4 md:start-1/2 w-6 h-6 rounded-full bg-[var(--accent-color)] border-4 border-[var(--bg-color)] shadow transform -translate-x-1/2 rtl:translate-x-1/2 mt-1.5 md:mt-0 z-10"></div>
+                    <div class="hidden md:block md:w-1/2 ps-12 text-start">
                         <h3 class="text-2xl font-bold">Facility Expansion</h3>
                         <p class="text-[var(--text-muted)] mt-2">We opened our official beachfront center, adding jet ski support and radio helmets to our teaching arsenal.</p>
                     </div>
                 </div>
                 
                 <div class="relative flex flex-col md:flex-row items-center">
-                    <div class="hidden md:block md:w-1/2 pr-12 text-right">
+                    <div class="hidden md:block md:w-1/2 pe-12 text-end">
                         <h3 class="text-2xl font-bold">Adding Wing Foiling</h3>
                         <p class="text-[var(--text-muted)] mt-2">We became the first school in the region to offer comprehensive wing foil programs, adapting to the sport's evolution.</p>
                     </div>
-                    <div class="absolute left-4 md:left-1/2 w-6 h-6 rounded-full bg-[var(--accent-color)] border-4 border-[var(--bg-color)] shadow transform -translate-x-1/2 mt-1.5 md:mt-0 z-10"></div>
-                    <div class="w-full pl-12 md:w-1/2 md:pl-12 text-left">
+                    <div class="absolute start-4 md:start-1/2 w-6 h-6 rounded-full bg-[var(--accent-color)] border-4 border-[var(--bg-color)] shadow transform -translate-x-1/2 rtl:translate-x-1/2 mt-1.5 md:mt-0 z-10"></div>
+                    <div class="w-full ps-12 md:w-1/2 md:ps-12 text-start">
                         <span class="text-[var(--accent-color)] font-black text-xl mb-2 block">2022 - Present</span>
                         <div class="md:hidden mb-2">
                             <h3 class="text-2xl font-bold">Adding Wing Foiling</h3>
@@ -621,9 +614,9 @@
                         <div class="sm:col-span-2 md:col-span-1">
                             <h4>School Location</h4>
                             <ul class="space-y-3 text-[var(--text-muted)] text-sm">
-                                <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 shrink-0" style="color: var(--accent-color);"></i><span>South Beach Point<br>Windy Bay, FL 33139</span></li>
-                                <li class="flex items-center"><i class="fas fa-phone mr-3 shrink-0" style="color: var(--accent-color);"></i><a href="tel:+18005559463" class="break-all">1-800-555-WIND</a></li>
-                                <li class="flex items-center"><i class="fas fa-envelope mr-3 shrink-0" style="color: var(--accent-color);"></i><a href="mailto:ride@schoolkite.com" class="break-all">ride@schoolkite.com</a></li>
+                                <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 me-3 shrink-0" style="color: var(--accent-color);"></i><span>South Beach Point<br>Windy Bay, FL 33139</span></li>
+                                <li class="flex items-center"><i class="fas fa-phone me-3 shrink-0" style="color: var(--accent-color);"></i><a href="tel:+18005559463" class="break-all">1-800-555-WIND</a></li>
+                                <li class="flex items-center"><i class="fas fa-envelope me-3 shrink-0" style="color: var(--accent-color);"></i><a href="mailto:ride@schoolkite.com" class="break-all">ride@schoolkite.com</a></li>
                             </ul>
                         </div>
                     </div>
